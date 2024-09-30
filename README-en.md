@@ -14,7 +14,7 @@ https://jacknoire.github.io/FuriganaLyricsDesigner/
 
 The simplest way to run is to download the Windows portable ZIP package:
 
-
+https://github.com/JackNoire/FuriganaLyricsDesigner/releases/download/202409/FuriganaLyricsDesigner-portable-202409.zip
 
 After extracting, double-click `Furigana Lyrics Designer.exe`.
 
