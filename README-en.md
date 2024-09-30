@@ -1,12 +1,14 @@
 # Furigana Lyrics Designer
 
+[中文](https://github.com/JackNoire/FuriganaLyricsDesigner/blob/master/README.md)|**English**
+
 Furigana Lyrics Designer is a tool for adding furigana annotations to Japanese text. The tool can automatically generate furigana annotations and word definitions for Japanese text. Users can also manually modify incorrect annotations and definitions and save the results locally.
 
 This tool is mainly suitable for Japanese lyrics but can also handle other Japanese texts.
 
 Demo webpage (does not support furigana annotation; only supports uploading JSON files):
 
-
+https://jacknoire.github.io/FuriganaLyricsDesigner/
 
 ## How to Run
 

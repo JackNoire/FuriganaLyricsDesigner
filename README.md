@@ -1,12 +1,14 @@
 # Furigana Lyrics Designer
 
+**中文**|[English](https://github.com/JackNoire/FuriganaLyricsDesigner/blob/master/README-en.md)
+
 Furigana Lyrics Designer是一个日语假名注音工具。用户输入日语文本后，工具会自动生成假名注音与单词释义。此外，用户还可以手动修改不正确的注音和释义，并将注音结果保存在本地。
 
 本工具主要适用于日语歌词，但同样适合处理其他日语文本。
 
 示例网页（不支持标注假名，仅支持上传JSON文件）：
 
-
+https://jacknoire.github.io/FuriganaLyricsDesigner/
 
 ## 运行方法
 
