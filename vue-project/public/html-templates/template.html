@@ -1,0 +1,205 @@
+<!doctype html> 
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Furigana Designer</title>
+  <style>
+    html {
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #eee;
+    }
+    .mainview {
+      margin:0 auto;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 30px;
+      display: block;
+      max-width: 90vw;
+      width: 120vh;
+      flex-grow: 1;
+      background-color: #fdfdfd;
+    }
+    .render-text {
+      display: block;
+      font-size: 22px;
+      line-height: 250%;
+      letter-spacing: 2.5px;
+      padding: 30px;
+      padding-top: 80px;
+      padding-bottom: 200px;
+    }
+    rt {
+      font-size: 18px;
+      color: blue;
+      letter-spacing: 0px;
+    }
+    .meaning-box {
+      display: none;
+
+      width: 200px;
+      border: 1px solid black;
+      font-size: 18px;
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      
+      line-height: 120%;
+      letter-spacing: 0px;
+
+      padding-top: -10px;
+      padding-bottom: -5px;
+      padding-left: 10px;
+      padding-right: 10px;
+
+      position: absolute;
+      float: left;
+      top: 120%;
+      left: 0%;
+      z-index: 1;
+    }
+    .phrase {
+      position: relative;
+    }
+    .phrase>span {
+      display: none;
+    }
+    .phrase:hover .meaning-box {
+      display: inline;
+    }
+    .translation {
+      font-size: 18px;
+      line-height: 120%;
+      letter-spacing: 2px;
+      margin-top: -10px;
+      margin-bottom: 20px;
+      color: #f66;
+    }
+    button {
+      height: 60px;
+      width: 120px;
+      font-size: 20px;
+      color: white;
+    }
+    button:hover {
+      cursor: pointer;
+    }
+    #btnFurigana {
+      background-color: #00c;
+    }
+    #btnFurigana:hover {
+      background-color: #11d;
+    }
+    #btnTranslation {
+      background-color: #f66;
+    }
+    #btnTranslation:hover {
+      background-color: #f77;
+    }
+    #btnMeaning {
+      background-color: #333;
+    }
+    #btnMeaning:hover {
+      background-color: #555;
+    }
+  </style>
+  <style id="phraseHoverStyle">
+    .phrase:hover {
+      background-color: #ccc;
+      cursor: pointer;
+    }
+  </style>
+<script>
+var showFurigana = true;
+function toggleFurigana() {
+  showFurigana = !showFurigana;
+  if (showFurigana) {
+    document.querySelectorAll(".phrase>ruby").forEach((ruby) => {
+      ruby.style.display = '';
+    });
+    document.querySelectorAll(".phrase>span").forEach((span) => {
+      span.style.display = '';
+    });
+    document.getElementById("render-text").style.lineHeight = '';
+    document.querySelectorAll(".translation").forEach((translation) => {
+      translation.style.marginTop = '';
+    });
+    
+    document.getElementById("btnFurigana").innerHTML = "注音<br>ON";
+  } else {
+    document.querySelectorAll(".phrase>ruby").forEach((ruby) => {
+      ruby.style.display = 'none';
+    });
+    document.querySelectorAll(".phrase>span").forEach((span) => {
+      span.style.display = 'inline';
+    });
+    document.getElementById("render-text").style.lineHeight = '150%';
+    document.querySelectorAll(".translation").forEach((translation) => {
+      translation.style.marginTop = '0px';
+    });
+    
+    document.getElementById("btnFurigana").innerHTML = "注音<br>OFF";
+  }
+}
+
+var showTranslation = true;
+function toggleTranslation() {
+  showTranslation = !showTranslation;
+  if (showTranslation) {
+    document.querySelectorAll(".translation").forEach((translation) => {
+      translation.style.display = '';
+    });
+    
+    document.getElementById("btnTranslation").innerHTML = "翻译<br>ON";
+  } else {
+    document.querySelectorAll(".translation").forEach((translation) => {
+      translation.style.display = 'none';
+    });
+    
+    document.getElementById("btnTranslation").innerHTML = "翻译<br>OFF";
+  }
+}
+
+var showMeaning = true;
+function toggleMeaning() {
+  showMeaning = !showMeaning;
+  var styleSheet = document.getElementById("phraseHoverStyle").sheet;
+  if (showMeaning) {
+    document.querySelectorAll(".meaning-box").forEach((meaning) => {
+      meaning.style.display = '';
+    });
+
+    if (styleSheet.cssRules.length == 0) {
+      styleSheet.insertRule('.phrase:hover { background-color: #ccc; cursor: pointer; }', 0);
+    }
+
+    document.getElementById("btnMeaning").innerHTML = "划词<br>ON";
+  } else {
+    document.querySelectorAll(".meaning-box").forEach((meaning) => {
+      meaning.style.display = 'none';
+    });
+
+    while (styleSheet.cssRules.length > 0) {
+      styleSheet.deleteRule(0);
+    }
+
+    document.getElementById("btnMeaning").innerHTML = "划词<br>OFF";
+  }
+}
+</script>
+</head>
+<body>
+<div class="mainview">
+  <button id="btnFurigana" onclick="toggleFurigana()">注音<br>ON</button>
+  <button id="btnTranslation" onclick="toggleTranslation()">翻译<br>ON</button>
+  <button id="btnMeaning" onclick="toggleMeaning()">划词<br>ON</button>
+  <br>
+<div id="render-text" class="render-text">
+</div>
+</div>
+</body>
+</html>
