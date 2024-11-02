@@ -20,17 +20,13 @@ const showMeaning = ref(true);
  * get phrase element closest to screen top
  */
 function getTopElement() {
-  // Screen Top Y (relative to page top)
-  const topY = window.scrollY;
-
   const elements = document.querySelectorAll('.phrase');
   let closestElement = null;
   let closestDistance = Infinity;
 
   elements.forEach(element => {
-    // Element Y (relative to page top)
-    const elementY = element.getBoundingClientRect().top + window.scrollY;
-    const distance = elementY - topY;
+    // distance to viewport top
+    const distance = element.getBoundingClientRect().top;
     if (distance > 0 && distance < closestDistance) {
       closestDistance = distance;
       closestElement = element;
@@ -153,7 +149,7 @@ function onClickClosePhrase() {
   line-height: 120%;
   letter-spacing: 2.5px;
   padding: 30px;
-  padding-bottom: 200px;
+  padding-bottom: 500px;
 }
 
 .render-text.furigana {
