@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject, computed } from 'vue'
+import { ref, inject, computed, nextTick } from 'vue'
 import JsonDownload from './JsonDownload.vue'
 import HTMLDownload from './HTMLDownload.vue';
 import EditPhrase from './EditPhrase.vue'
@@ -15,6 +15,61 @@ const template_list = computed(() => {
 const showFurigana = ref(true);
 const showTranslation = ref(true);
 const showMeaning = ref(true);
+
+/**
+ * get phrase element closest to screen top
+ */
+function getTopElement() {
+  // Screen Top Y (relative to page top)
+  const topY = window.scrollY;
+
+  const elements = document.querySelectorAll('.phrase');
+  let closestElement = null;
+  let closestDistance = Infinity;
+
+  elements.forEach(element => {
+    // Element Y (relative to page top)
+    const elementY = element.getBoundingClientRect().top + window.scrollY;
+    const distance = elementY - topY;
+    if (distance > 0 && distance < closestDistance) {
+      closestDistance = distance;
+      closestElement = element;
+    }
+  });
+
+  return closestElement;
+}
+
+/**
+ * toggle Furigana/Translation, scroll after toggle
+ * @param type string: "furigana" "translation"
+ */
+function toggleElement(type) {
+  const topElement = getTopElement();
+  
+  var topElementTop;
+  if (topElement) {
+    // Element Y (relative to current window top)
+    topElementTop = topElement.getBoundingClientRect().top;
+  }
+
+  switch (type) {
+    case "furigana":
+      showFurigana.value = !showFurigana.value;
+      break;
+    case "translation":
+      showTranslation.value = !showTranslation.value;
+      break;
+  }
+
+  if (topElement) {
+    nextTick(() => {
+      // New Element Y (relative to current window top)
+      const newTopElementTop = topElement.getBoundingClientRect().top;
+      window.scrollBy(0, newTopElementTop - topElementTop);
+    });
+  }
+}
 
 const showEditPhrase = ref(false);
 const editPhraseIndex = ref(0);
@@ -62,8 +117,8 @@ function onClickClosePhrase() {
   </span>
 </div>
 <div v-if="isGlobalJsonDataUnsaved" class="unsave-warning">{{ $t("btn.unsave_warning") }}</div>
-<button @click="showFurigana=!showFurigana" class="btn furiganaBtn">{{ $t("btn.furiganaToggle") }}<br>{{ showFurigana?"ON":"OFF" }}</button>
-<button @click="showTranslation=!showTranslation" class="btn translationBtn">{{ $t("btn.translationToggle") }}<br>{{ showTranslation?"ON":"OFF" }}</button>
+<button @click="toggleElement('furigana')" class="btn furiganaBtn">{{ $t("btn.furiganaToggle") }}<br>{{ showFurigana?"ON":"OFF" }}</button>
+<button @click="toggleElement('translation')" class="btn translationBtn">{{ $t("btn.translationToggle") }}<br>{{ showTranslation?"ON":"OFF" }}</button>
 <button @click="showMeaning=!showMeaning" class="btn meaningBtn">{{ $t("btn.meaningToggle") }}<br>{{ showMeaning?"ON":"OFF" }}</button>
 <JsonDownload class="btn jsondownloadBtn" filename="export.json" />
 <HTMLDownload class="btn htmldownloadBtn" filename="export.html" />
