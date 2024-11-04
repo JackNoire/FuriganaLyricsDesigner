@@ -27,15 +27,15 @@
     }
     .render-text {
       display: block;
-      font-size: 22px;
+      font-size: 20px;
       line-height: 250%;
       letter-spacing: 2.5px;
       padding: 30px;
-      padding-top: 80px;
-      padding-bottom: 200px;
+      margin-top: 60px;
+      padding-bottom: 500px;
     }
     rt {
-      font-size: 18px;
+      font-size: 16px;
       color: blue;
       letter-spacing: 0px;
     }
@@ -79,6 +79,20 @@
       margin-bottom: 20px;
       color: #f66;
     }
+    .btnBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #333;
+      color: white;
+      display: flex;
+      z-index: 2;
+    }
+    .btnBar>div {
+      width: 100vw;
+      justify-content: space-around;
+    }
     button {
       height: 60px;
       width: 120px;
@@ -114,6 +128,50 @@
     }
   </style>
 <script>
+function getTopElement() {
+  const elements = document.querySelectorAll('.phrase');
+  let closestElement = null;
+  let closestDistance = Infinity;
+
+  elements.forEach(element => {
+    // distance to viewport top
+    const distance = element.getBoundingClientRect().top;
+    if (distance > 60 && distance < closestDistance) {
+      closestDistance = distance;
+      closestElement = element;
+    }
+  });
+
+  return closestElement;
+}
+
+/**
+ * toggle Furigana/Translation, scroll after toggle
+ * @param type: "furigana" "translation"
+ */
+function toggleElement(type) {
+  const topElement = getTopElement();
+  
+  var topElementTop;
+  if (topElement) {
+    topElementTop = topElement.getBoundingClientRect().top;
+  }
+
+  switch (type) {
+    case "furigana":
+      toggleFurigana();
+      break;
+    case "translation":
+      toggleTranslation();
+      break;
+  }
+
+  if (topElement) {
+    const newTopElementTop = topElement.getBoundingClientRect().top;
+    window.scrollBy(0, newTopElementTop - topElementTop);
+  }
+}
+
 var showFurigana = true;
 function toggleFurigana() {
   showFurigana = !showFurigana;
@@ -194,10 +252,13 @@ function toggleMeaning() {
 </head>
 <body>
 <div class="mainview">
-  <button id="btnFurigana" onclick="toggleFurigana()">注音<br>ON</button>
-  <button id="btnTranslation" onclick="toggleTranslation()">翻译<br>ON</button>
-  <button id="btnMeaning" onclick="toggleMeaning()">划词<br>ON</button>
-  <br>
+  <div class="btnBar">
+    <div>
+      <button id="btnFurigana" onclick="toggleElement('furigana')">注音<br>ON</button>
+      <button id="btnTranslation" onclick="toggleElement('translation')">翻译<br>ON</button>
+      <button id="btnMeaning" onclick="toggleMeaning()">划词<br>ON</button>
+    </div>
+  </div>
 <div id="render-text" class="render-text">
 </div>
 </div>
