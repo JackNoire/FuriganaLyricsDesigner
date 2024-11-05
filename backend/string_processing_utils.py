@@ -95,34 +95,12 @@ def __generate_phrase_obj_list(text: str, sudachi_dictionary: dictionary.Diction
                                          "index": 0 }
             result.append(phrase_obj)
         else:
-            # If phrase not exists in JMdict, split into shorter phrases and try again
-            success_flag = False
-            for splitmode in (SplitMode.B, SplitMode.A):
-                shorter_phrase_m_list = phrase_m.split(splitmode)
-                allInJMdict = True
-                for shorter_phrase_m in shorter_phrase_m_list:
-                    allInJMdict = allInJMdict and jmdict_dictionary.exists(shorter_phrase_m.dictionary_form())
-                if allInJMdict:
-                    for shorter_phrase_m in shorter_phrase_m_list:
-                        phrase_obj = __generate_phrase_obj(shorter_phrase_m, sudachi_dictionary)
-                        if is_kana(shorter_phrase_m.dictionary_form()):
-                            phrase_obj["meaning"] = { "word": shorter_phrase_m.dictionary_form(), 
-                                                     "list": [], 
-                                                     "index": -1 }
-                        else:
-                            phrase_obj["meaning"] = { "word": shorter_phrase_m.dictionary_form(), 
-                                                     "list": jmdict_dictionary.lookup(shorter_phrase_m.dictionary_form()), 
-                                                     "index": 0 }
-                        result.append(phrase_obj)
-                    success_flag = True
-                    break
-            if not success_flag:
-                # Still not exists in JMdict after splitting, fallback to long phrase
-                phrase_obj = __generate_phrase_obj(phrase_m, sudachi_dictionary)
-                phrase_obj["meaning"] = { "word": phrase_m.dictionary_form(),
-                                         "list": [], 
-                                         "index": -1 }
-                result.append(phrase_obj)
+            # If phrase not exists in JMdict
+            phrase_obj = __generate_phrase_obj(phrase_m, sudachi_dictionary)
+            phrase_obj["meaning"] = { "word": phrase_m.dictionary_form(),
+                                        "list": [], 
+                                        "index": -1 }
+            result.append(phrase_obj)
     return result
 
 def __generate_phrase_obj(phrase_m: Morpheme, sudachi_dictionary: dictionary.Dictionary) -> dict:
