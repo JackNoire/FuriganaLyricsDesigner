@@ -95,9 +95,7 @@ function onClickClosePhrase() {
           <br v-if="word_kana[0]=='\n'">
           <span v-else-if="word_kana[0]==' '">&nbsp;</span>
           <span v-else>
-            <ruby v-if="showFurigana">{{ word_kana[0] }}
-              <rt v-if="word_kana[1]">{{ word_kana[1] }}</rt>
-            </ruby>
+            <ruby v-if="showFurigana">{{ word_kana[0] }}<rt v-if="word_kana[1]">{{ word_kana[1] }}</rt></ruby>
             <span v-else>{{ word_kana[0] }}</span>
           </span>
         </span>

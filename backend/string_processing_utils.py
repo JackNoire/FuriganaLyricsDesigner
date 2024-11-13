@@ -87,12 +87,12 @@ def __generate_phrase_obj_list(text: str, sudachi_dictionary: dictionary.Diction
             phrase_obj = __generate_phrase_obj(phrase_m, sudachi_dictionary)
             if is_kana(phrase_m.dictionary_form()):
                 phrase_obj["meaning"] = { "word": phrase_m.dictionary_form(), 
-                                         "list": [], 
-                                         "index": -1 }
+                                        "list": [], 
+                                        "index": -1 }
             else:
                 phrase_obj["meaning"] = { "word": phrase_m.dictionary_form(), 
-                                         "list": jmdict_dictionary.lookup(phrase_m.dictionary_form(), phrase_m.part_of_speech()[0]), 
-                                         "index": 0 }
+                                        "list": jmdict_dictionary.lookup(phrase_m.dictionary_form(), phrase_m.part_of_speech()[0]), 
+                                        "index": 0 }
             result.append(phrase_obj)
         else:
             # If phrase not exists in JMdict
