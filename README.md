@@ -14,7 +14,7 @@ https://jacknoire.github.io/FuriganaLyricsDesigner/
 
 最简单的运行方法是直接下载Windows免安装压缩包：
 
-https://github.com/JackNoire/FuriganaLyricsDesigner/releases/download/202409/FuriganaLyricsDesigner-portable-202409.zip
+https://github.com/JackNoire/FuriganaLyricsDesigner/releases/download/202411/FuriganaLyricsDesigner-portable-202411.zip
 
 解压后双击Furigana Lyrics Designer.exe。
 
