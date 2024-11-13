@@ -141,3 +141,5 @@ requirements.txt
 [WorksApplications/sudachi.rs: Sudachi in Rust 🦀 and new generation of SudachiPy](https://github.com/WorksApplications/sudachi.rs)
 
 [JMdict-EDICT Dictionary Project - EDRDG Wiki](https://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)
+
+MACINSKÝ, Alexander. *Analyzer of Japanese Texts for Language Learning Purposes*. Online. Master's thesis. Brno: Masaryk University, Faculty of Informatics. 2023. Available from: https://is.muni.cz/th/opw9s/.
