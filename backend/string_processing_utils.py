@@ -98,8 +98,8 @@ def __generate_phrase_obj_list(text: str, sudachi_dictionary: dictionary.Diction
             # If phrase not exists in JMdict
             phrase_obj = __generate_phrase_obj(phrase_m, sudachi_dictionary)
             phrase_obj["meaning"] = { "word": phrase_m.dictionary_form(),
-                                        "list": [], 
-                                        "index": -1 }
+                                    "list": [], 
+                                    "index": -1 }
             result.append(phrase_obj)
     return result
 
